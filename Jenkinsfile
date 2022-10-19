@@ -10,9 +10,6 @@ pipeline {
                 }
             }
         }
-        environment {
-            $DOCKER-HUB = credentials('DOCKER-HUB')
-        }
         stage("build jar") {
             steps {
                 script {
@@ -26,9 +23,10 @@ pipeline {
             steps {
                 script {
                     echo "building image..."
+                    withCredentials([usernamePassword(credentialsId: 'DOCKER-HUB' , passwordVariable: 'PASS' , usernameVariable: 'USER')]) {
                         sh 'docker build -t jubreal30/appbuild:1.3 .'
-                        sh "echo $DOCKER-HUB_PSW | docker login -u $DOCKER-HUB_USER --password-stdin"
-                        sh 'docker push jubreal30/appbuild:1.1'
+                        sh "echo $PASS | docker login -u $USER --password-stdin"
+                        sh 'docker push jubreal30/appbuild:1.3'
                     }
                 }
             }
