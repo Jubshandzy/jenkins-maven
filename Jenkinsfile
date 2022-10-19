@@ -11,7 +11,7 @@ pipeline {
             }
         }
         environment {
-            DOCKER-HUB = credentials('DOCKER-HUB')
+            $DOCKER-HUB = credentials('DOCKER-HUB')
         }
         stage("build jar") {
             steps {
