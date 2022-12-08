@@ -26,7 +26,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'docker-hub' , passwordVariable: 'PASS' , usernameVariable: 'USER')]) {
                         sh 'docker build -t jubreal30/appbuild:1.4 .'
                         sh "echo $PASS | docker login -u $USER --password-stdin"
-                        sh 'docker push jubreal30/appbuild:1.3'
+                        sh 'docker push jubreal30/appbuild:1.4'
                     }
                 }
             }
